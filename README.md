@@ -10,6 +10,51 @@ Each theme lives in its own folder under [`themes/`](themes/) with a self-contai
 
 ---
 
+## 🔬 Science  ·  the flagship
+
+A professional, high-tech laboratory system styled like a **luxury-automotive instrument
+cluster**. Cool titanium/platinum neutrals — near-white by day, deep graphite by night — with
+a restrained steel accent and brushed-steel/cyan for data. The luxury reads through the
+*structure*: large light-weight display headings, wide uppercase letter-spaced instrument
+labels, thin tabular-mono readouts, generous whitespace, hairline dividers, and crisp corners.
+
+Light is the default; add `dark` to the body (or open the preview with `#dark`).
+
+| Light | Dark |
+| --- | --- |
+| ![Science — light](themes/science/screenshots/light.png) | ![Science — dark](themes/science/screenshots/dark.png) |
+
+```html
+<link rel="stylesheet" href="themes/science/theme.css" />
+<body class="science"> ... </body>          <!-- light (default) -->
+<body class="science dark"> ... </body>      <!-- high-class dark -->
+```
+
+---
+
+## ☕ Caffeine
+
+Warm, rounded, friendly — built on the
+[Caffeine theme from tweakcn](https://tweakcn.com/editor/theme) (espresso/latte neutrals, soft
+shadows, `0.5rem` corners). The accents follow an established earth-tone palette so they
+complement the brown rather than fight it: **sage green**, **dusty sky-blue**, and a **muted
+ochre** (no violet).
+
+![Caffeine — palette & typography](themes/caffeine/screenshots/hero.png)
+
+```html
+<link rel="stylesheet" href="themes/caffeine/theme.css" />
+<body class="caffeine"> ... </body>
+```
+
+<details><summary>Full styleguide</summary>
+
+![Caffeine — full styleguide](themes/caffeine/screenshots/full.png)
+
+</details>
+
+---
+
 ## 🕹 Retro Zero
 
 Retro-futuristic HUD — neon-cyan hairlines, solid dark panels, faint scanlines, hard corners,
@@ -31,50 +76,10 @@ uppercase pixel/mono type, soft glow.
 
 ---
 
-## ☕ Caffeine
-
-Warm, rounded, friendly — a faithful port of the
-[Caffeine theme from tweakcn](https://tweakcn.com/editor/theme) (coffee/cream neutrals, soft
-shadows, `0.5rem` corners) with a little extra accent flare so it isn't all brown (dusty teal,
-warm sage, amber, muted plum).
-
-![Caffeine — palette & typography](themes/caffeine/screenshots/hero.png)
-
-```html
-<link rel="stylesheet" href="themes/caffeine/theme.css" />
-<body class="caffeine"> ... </body>
-```
-
-<details><summary>Full styleguide</summary>
-
-![Caffeine — full styleguide](themes/caffeine/screenshots/full.png)
-
-</details>
-
----
-
-## 🔬 Science
-
-A professional high-tech lab system: **mostly-white, clinical light mode** with a faint
-precision grid, and a **high-class charcoal dark mode** with luminous instrument-blue accents.
-Toggle modes with the button in the preview (or load with `#dark`).
-
-| Light | Dark |
-| --- | --- |
-| ![Science — light](themes/science/screenshots/light.png) | ![Science — dark](themes/science/screenshots/dark.png) |
-
-```html
-<link rel="stylesheet" href="themes/science/theme.css" />
-<body class="science"> ... </body>          <!-- light (default) -->
-<body class="science dark"> ... </body>      <!-- high-class dark -->
-```
-
----
-
 ## Reskinning
 
 Every theme's colors are CSS variables at the top of its `theme.css` — override them to
-retune a theme without touching components. The retro theme uses hex tokens (`--neon`,
+retune a theme without touching components. Retro Zero uses hex tokens (`--neon`,
 `--accent-2`, `--bg`, …); Caffeine and Science use `oklch()` design tokens
 (`--primary`, `--secondary`, `--info`, `--bg`, …), with Science's dark mode defined as
 overrides on `body.science.dark`.
