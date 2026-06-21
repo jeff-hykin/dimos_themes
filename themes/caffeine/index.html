@@ -1,0 +1,319 @@
+<!doctype html>
+<!--
+  DimOS theme preview — "Caffeine" variant.
+  Same component coverage as the retro preview, restyled with the Caffeine
+  palette from tweakcn (warm neutrals, rounded corners, soft shadows) plus a
+  few subtle accent colors so it isn't all brown.
+  Everything here is styled purely by ./theme.css; this page only arranges it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DimOS · Caffeine Theme</title>
+<link rel="stylesheet" href="./theme.css" />
+<style>
+  /* page-local layout only — no component styling lives here */
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 24px 80px; }
+  .topbar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .grid { display: grid; gap: 18px; }
+  .grid.two { grid-template-columns: 1fr 1fr; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .stack { display: flex; flex-direction: column; gap: 14px; }
+  section { margin-top: 34px; }
+  .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .swatch { height: 56px; border-radius: var(--radius); border: 1px solid var(--border); display: flex; align-items: flex-end; padding: 7px 9px; font-size: 11px; font-weight: 500; box-shadow: var(--shadow-2xs); }
+  .stat { font-size: 22px; font-weight: 700; color: var(--fg); }
+  .stat-row { display: flex; align-items: baseline; gap: 8px; }
+  .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--fg); }
+  .brand .dot-mark { color: var(--primary); }
+  @media (max-width: 820px) { .grid.two, .grid.three { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="caffeine">
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="dim-live-dot"></span>
+    <span class="brand">Dim<span class="dot-mark">OS</span></span>
+    <span class="dim-h3">// caffeine theme</span>
+  </div>
+  <p class="dim-muted" style="margin:0">Warm, rounded design system for dashboard apps — the Caffeine palette from tweakcn, with a little accent flare.</p>
+
+  <!-- ── Colors ─────────────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Palette</h2><span class="dim-h3">tokens</span></div>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="swatch" style="background:var(--primary);color:var(--primary-fg)">primary</div>
+      <div class="swatch" style="background:var(--secondary);color:var(--secondary-fg)">secondary</div>
+      <div class="swatch" style="background:var(--accent);color:var(--accent-fg)">accent</div>
+      <div class="swatch" style="background:var(--muted);color:var(--muted-fg)">muted</div>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:14px">
+      <div class="swatch" style="background:var(--info);color:white">sky</div>
+      <div class="swatch" style="background:var(--ok);color:white">sage</div>
+      <div class="swatch" style="background:var(--warn);color:#3a2a00">ochre</div>
+      <div class="swatch" style="background:var(--destructive);color:white">danger</div>
+    </div>
+  </section>
+
+  <!-- ── Typography ─────────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Typography</h2><span class="dim-h3">System sans · mono</span></div>
+    <div class="dim-card">
+      <h1 class="dim-h1">Display heading — H1</h1>
+      <h2 class="dim-h2">Section label — H2</h2>
+      <h3 class="dim-h3">Caption — H3</h3>
+      <p style="margin:0">Body copy in the system sans stack. The robot is online and awaiting commands.
+        Read the <a href="#" class="dim-link">operator manual</a> for details.</p>
+      <p class="dim-label">Uppercase tracked label</p>
+      <p class="dim-muted" style="margin:0">Muted secondary text.</p>
+    </div>
+  </section>
+
+  <!-- ── Buttons ────────────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Buttons</h2></div>
+    <div class="row">
+      <button class="dim-btn primary">Primary</button>
+      <button class="dim-btn">Secondary</button>
+      <button class="dim-btn accent">Accent</button>
+      <button class="dim-btn ghost">Ghost</button>
+      <button class="dim-btn danger">Destructive</button>
+      <button class="dim-btn sm">Small</button>
+      <button class="dim-btn" disabled>Disabled</button>
+    </div>
+  </section>
+
+  <!-- ── Badges + status ────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Badges &amp; Status</h2></div>
+    <div class="row">
+      <span class="dim-badge"><span class="dot"></span>Online</span>
+      <span class="dim-badge solid">Active</span>
+      <span class="dim-badge info">Syncing</span>
+      <span class="dim-badge ok">Nominal</span>
+      <span class="dim-badge warn">Degraded</span>
+      <span class="dim-badge danger">Fault</span>
+    </div>
+  </section>
+
+  <!-- ── Form fields ────────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Form Controls</h2></div>
+    <div class="grid two">
+      <div class="dim-card">
+        <div class="dim-card-title">Inputs</div>
+        <div class="dim-field"><label>Robot name</label><input class="dim-input" placeholder="unitree-go2-01" /></div>
+        <div class="dim-field"><label>Endpoint</label><input class="dim-input" type="password" value="••••••••••" /></div>
+        <div class="dim-field"><label>Blueprint</label>
+          <select class="dim-select"><option>unitree-go2-basic</option><option>g1-manipulation</option><option>sim-playground</option></select>
+        </div>
+        <div class="dim-field"><label>Notes</label><textarea class="dim-textarea" placeholder="Mission log…"></textarea></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-card-title">Toggles</div>
+        <label class="dim-check"><input type="checkbox" checked /><span class="box"></span>Enable telemetry</label>
+        <label class="dim-check"><input type="checkbox" /><span class="box"></span>Record video</label>
+        <div class="dim-label" style="margin-top:6px">Security level</div>
+        <label class="dim-check"><input type="radio" name="sec" checked /><span class="ring"></span>Standard</label>
+        <label class="dim-check"><input type="radio" name="sec" /><span class="ring"></span>Elevated</label>
+        <label class="dim-switch" style="margin-top:8px"><input type="checkbox" checked /><span class="track"></span><span class="dim-label">Drive armed</span></label>
+        <div class="dim-field" style="margin-top:10px"><label>Throttle</label><input class="dim-range" type="range" min="0" max="100" value="64" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stat cards + progress ──────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Stats</h2></div>
+    <div class="grid three">
+      <div class="dim-card">
+        <div class="dim-label">Uptime</div>
+        <div class="stat-row"><span class="stat">04:12:39</span><span class="dim-badge ok">live</span></div>
+        <div class="dim-progress"><span style="width:82%"></span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-label">Battery</div>
+        <div class="stat-row"><span class="stat">64%</span><span class="dim-badge warn">discharging</span></div>
+        <div class="dim-progress warn"><span style="width:64%"></span></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-label">Modules</div>
+        <div class="stat-row"><span class="stat">7</span><span class="dim-muted">deployed</span></div>
+        <div class="dim-progress info"><span style="width:100%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Cards: goal stepper + calendar + charts ────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Cards</h2><span class="dim-h3">dashboards</span></div>
+    <div class="grid two">
+      <div class="dim-card">
+        <div class="dim-card-title">Patrol Goal</div>
+        <div class="dim-card-desc">Set today's patrol distance target.</div>
+        <div class="row" style="justify-content:center;gap:18px;margin:6px 0">
+          <button class="dim-btn icon" id="goalDown">−</button>
+          <div style="text-align:center">
+            <div class="dim-stepper"><span class="val" id="goalVal">350</span></div>
+            <div class="dim-h3" style="margin-top:6px">meters / shift</div>
+          </div>
+          <button class="dim-btn icon" id="goalUp">+</button>
+        </div>
+        <div class="dim-bars" id="goalBars"></div>
+        <button class="dim-btn primary" style="margin-top:6px">Set Goal</button>
+      </div>
+
+      <div class="dim-card">
+        <div class="dim-card-title">Schedule</div>
+        <div class="dim-cal">
+          <div class="dim-cal-head"><span class="dim-btn ghost sm">‹</span><span class="mo">June 2026</span><span class="dim-btn ghost sm">›</span></div>
+          <div class="dim-cal-grid" id="cal">
+            <span class="dow">Su</span><span class="dow">Mo</span><span class="dow">Tu</span><span class="dow">We</span><span class="dow">Th</span><span class="dow">Fr</span><span class="dow">Sa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dim-card" style="margin-top:18px">
+      <div class="dim-card-title">Motion Hours</div>
+      <div class="dim-card-desc">Active drive time this week vs. last.</div>
+      <svg class="dim-chart" id="chart" viewBox="0 0 700 150" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="row" style="gap:18px;font-size:11px">
+        <span class="dim-badge info"><span class="dot"></span>This week</span>
+        <span class="dim-badge">Last week</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tabs ───────────────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Tabs</h2></div>
+    <div class="dim-card">
+      <div class="dim-tabs" id="tabs">
+        <button class="dim-tab" aria-selected="true" data-tab="t1">Overview</button>
+        <button class="dim-tab" aria-selected="false" data-tab="t2">Telemetry</button>
+        <button class="dim-tab" aria-selected="false" data-tab="t3">Logs</button>
+      </div>
+      <div data-panel="t1" style="margin-top:14px">Robot overview, pose, and active policy.</div>
+      <div data-panel="t2" hidden style="margin-top:14px">Live sensor telemetry stream.</div>
+      <div data-panel="t3" hidden style="margin-top:14px">Session log output, newest last.</div>
+    </div>
+  </section>
+
+  <!-- ── Table ──────────────────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Data Table</h2></div>
+    <div class="dim-card" style="padding:0;overflow:hidden">
+      <table class="dim-table">
+        <thead><tr><th>Module</th><th>Type</th><th>Rate</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>lidar_front</td><td>sensor</td><td>10 Hz</td><td><span class="dim-badge ok"><span class="dot"></span>ok</span></td></tr>
+          <tr><td>nav_planner</td><td>compute</td><td>30 Hz</td><td><span class="dim-badge ok"><span class="dot"></span>ok</span></td></tr>
+          <tr><td>arm_left</td><td>actuator</td><td>50 Hz</td><td><span class="dim-badge warn">slow</span></td></tr>
+          <tr><td>cam_depth</td><td>sensor</td><td>—</td><td><span class="dim-badge danger">down</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Alerts + avatars ───────────────────────────────── -->
+  <section>
+    <div class="section-head"><h2 class="dim-h2">Alerts &amp; People</h2></div>
+    <div class="grid two">
+      <div class="stack">
+        <div class="dim-alert info"><div><div class="dim-alert-title">Heads up</div>Firmware update available for unitree-go2.</div></div>
+        <div class="dim-alert warn"><div><div class="dim-alert-title">Warning</div>Battery below 70%. Dock recommended.</div></div>
+        <div class="dim-alert danger"><div><div class="dim-alert-title">Fault</div>Depth camera disconnected.</div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-card-title">Operators</div>
+        <div class="row" style="gap:12px"><span class="dim-avatar">JH</span><div><div>Jeff Hykin</div><div class="dim-muted" style="font-size:12px">owner</div></div></div>
+        <div class="row" style="gap:12px"><span class="dim-avatar sky">AR</span><div><div>Ada Robotics</div><div class="dim-muted" style="font-size:12px">operator</div></div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // ── goal stepper + bar chart ──
+  const bars = [40, 55, 48, 72, 90, 61, 58, 66, 80, 52, 70, 63]
+  const goalBars = document.getElementById("goalBars")
+  goalBars.innerHTML = bars.map((h, i) =>
+    `<span class="bar ${i === 4 ? "hot" : ""}" style="height:${h}%"></span>`).join("")
+  let goal = 350
+  const goalVal = document.getElementById("goalVal")
+  const step = (d) => { goal = Math.max(0, goal + d); goalVal.textContent = goal }
+  document.getElementById("goalUp").onclick = () => step(10)
+  document.getElementById("goalDown").onclick = () => step(-10)
+
+  // ── calendar (June 2026 starts on a Monday) ──
+  const cal = document.getElementById("cal")
+  const firstDow = 1, days = 30, sel = 5, range = [8, 13]
+  for (let i = 0; i < firstDow; i++) { cal.insertAdjacentHTML("beforeend", `<span class="day muted"></span>`) }
+  for (let d = 1; d <= days; d++) {
+    const cls = d === sel ? "sel" : (d >= range[0] && d <= range[1] ? "range" : "")
+    cal.insertAdjacentHTML("beforeend", `<button class="day ${cls}">${d}</button>`)
+  }
+  cal.addEventListener("click", (e) => {
+    const day = e.target.closest(".day:not(.muted)")
+    if (!day) { return }
+    for (const d of cal.querySelectorAll(".day")) { d.classList.remove("sel") }
+    day.classList.add("sel")
+  })
+
+  // ── line chart (two smooth series over a faint grid) ──
+  const W = 700, H = 150, pad = 8
+  const mk = (n) => document.createElementNS("http://www.w3.org/2000/svg", n)
+  const path = (pts) => {
+    const xs = (i) => pad + (i * (W - 2 * pad)) / (pts.length - 1)
+    const ys = (v) => H - pad - (v / 100) * (H - 2 * pad)
+    let d = `M ${xs(0)} ${ys(pts[0])}`
+    for (let i = 1; i < pts.length; i++) {
+      const x0 = xs(i - 1), x1 = xs(i), cx = (x0 + x1) / 2
+      d += ` C ${cx} ${ys(pts[i - 1])} ${cx} ${ys(pts[i])} ${x1} ${ys(pts[i])}`
+    }
+    return d
+  }
+  const svg = document.getElementById("chart")
+  const grid = mk("g"); grid.setAttribute("class", "grid")
+  for (let i = 0; i <= 4; i++) {
+    const y = pad + (i * (H - 2 * pad)) / 4
+    const l = mk("line"); l.setAttribute("x1", pad); l.setAttribute("x2", W - pad); l.setAttribute("y1", y); l.setAttribute("y2", y)
+    grid.appendChild(l)
+  }
+  svg.appendChild(grid)
+  const seriesA = [30, 42, 38, 88, 64, 50, 58]
+  const seriesB = [44, 40, 46, 42, 50, 48, 52]
+  for (const [pts, cls] of [[seriesB, "b"], [seriesA, "a"]]) {
+    const p = mk("path"); p.setAttribute("class", `series ${cls}`); p.setAttribute("d", path(pts)); svg.appendChild(p)
+  }
+  seriesA.forEach((v, i) => {
+    const c = mk("circle"); c.setAttribute("class", "node")
+    c.setAttribute("cx", pad + (i * (W - 2 * pad)) / (seriesA.length - 1))
+    c.setAttribute("cy", H - pad - (v / 100) * (H - 2 * pad)); c.setAttribute("r", 3); svg.appendChild(c)
+  })
+  ;["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach((lbl, i) => {
+    const t = mk("text"); t.setAttribute("class", "axis"); t.setAttribute("text-anchor", "middle")
+    t.setAttribute("x", pad + (i * (W - 2 * pad)) / 6); t.setAttribute("y", H + 4); t.textContent = lbl; svg.appendChild(t)
+  })
+
+  // tabs
+  const tabs = document.getElementById("tabs")
+  tabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".dim-tab")
+    if (!btn) { return }
+    for (const t of tabs.querySelectorAll(".dim-tab")) {
+      t.setAttribute("aria-selected", String(t === btn))
+    }
+    const id = btn.dataset.tab
+    for (const p of document.querySelectorAll("[data-panel]")) {
+      p.hidden = p.dataset.panel !== id
+    }
+  })
+</script>
+</body>
+</html>

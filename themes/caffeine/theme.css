@@ -1,0 +1,405 @@
+/*
+  DimOS UI theme — "Caffeine" variant.
+  Faithful port of the Caffeine theme from https://tweakcn.com/editor/theme
+  (warm coffee/cream neutrals, soft shadows, 0.5rem rounded corners).
+
+  Same component API as the retro theme (.dim-* classes) so any dashboard
+  app can swap stylesheets and keep its markup. Tokens are CSS variables on
+  :root — override them to reskin. Colors are kept verbatim from Caffeine
+  (oklch); --ok / --warn are added so status components stay meaningful.
+*/
+
+:root {
+    /* ── caffeine palette (light) — verbatim from tweakcn ── */
+    --bg: oklch(0.9821 0 0);
+    --fg: oklch(0.2435 0 0);
+    --card: oklch(0.9911 0 0);
+    --card-fg: oklch(0.2435 0 0);
+
+    --primary: oklch(0.4341 0.0392 41.9938);          /* espresso */
+    --primary-fg: oklch(1 0 0);
+    --secondary: oklch(0.92 0.0651 74.3695);          /* latte cream */
+    --secondary-fg: oklch(0.3499 0.0685 40.8288);
+    --muted: oklch(0.9521 0 0);
+    --muted-fg: oklch(0.5032 0 0);
+    --accent: oklch(0.931 0 0);
+    --accent-fg: oklch(0.2435 0 0);
+
+    --destructive: oklch(0.6271 0.1936 33.339);
+    --destructive-fg: oklch(1 0 0);
+
+    /* ── earth-tone accents — an established coffee palette: espresso pairs
+       naturally with sage green and dusty sky-blue, plus a muted ochre. All
+       low-chroma so they read as complementary, not loud. (No violet — it
+       fights brown.) Ref: classic earth-tone / "sage + terracotta" palettes. */
+    --info: oklch(0.66 0.052 233);                     /* dusty sky blue */
+    --ok: oklch(0.62 0.066 145);                        /* sage green */
+    --warn: oklch(0.72 0.082 78);                       /* muted ochre */
+    --sky: oklch(0.66 0.052 233);                       /* alias for clarity */
+
+    --border: oklch(0.8822 0 0);
+    --input: oklch(0.8822 0 0);
+    --ring: oklch(0.4341 0.0392 41.9938);
+
+    /* chart series — verbatim from tweakcn */
+    --chart-1: oklch(0.4341 0.0392 41.9938);
+    --chart-2: oklch(0.92 0.0651 74.3695);
+    --chart-3: oklch(0.931 0 0);
+    --chart-4: oklch(0.9367 0.0523 75.5009);
+    --chart-5: oklch(0.4338 0.0437 41.6746);
+
+    /* ── type ── */
+    --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+
+    /* ── radius (rounded edges, per caffeine) ── */
+    --radius: 0.5rem;
+    --radius-sm: calc(var(--radius) - 2px);
+    --radius-lg: calc(var(--radius) + 4px);
+
+    /* ── shadows — verbatim from caffeine ── */
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.caffeine {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 14px/1.55 var(--sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ───────────────────────── typography ───────────────────────── */
+
+.dim-h1,
+.dim-h2,
+.dim-h3 {
+    font-family: var(--sans);
+    color: var(--fg);
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+.dim-h1 { font-size: 26px; font-weight: 700; }
+.dim-h2 { font-size: 15px; font-weight: 600; }
+.dim-h3 { font-size: 12px; font-weight: 500; color: var(--muted-fg); letter-spacing: 0; }
+
+.dim-label { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted-fg); }
+.dim-muted { color: var(--muted-fg); }
+.dim-mono { font-family: var(--mono); }
+.dim-link { color: var(--primary); text-decoration: none; font-weight: 500; border-bottom: 1px solid color-mix(in oklch, var(--primary) 35%, transparent); }
+.dim-link:hover { border-color: var(--primary); }
+
+/* ───────────────────────── surfaces ──────────────────────────── */
+
+.dim-panel,
+.dim-card {
+    background: var(--card);
+    color: var(--card-fg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+.dim-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.dim-card-title { font-size: 14px; font-weight: 600; color: var(--fg); }
+.dim-card-desc { color: var(--muted-fg); font-size: 13px; margin-top: -6px; }
+
+/* ───────────────────────── buttons ──────────────────────────── */
+
+.dim-btn {
+    appearance: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 9px 15px;
+    box-shadow: var(--shadow-2xs);
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.dim-btn:hover { background: var(--accent); }
+.dim-btn:active { transform: translateY(0.5px); }
+.dim-btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.dim-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+.dim-btn.primary { color: var(--primary-fg); background: var(--primary); border-color: var(--primary); }
+.dim-btn.primary:hover { background: color-mix(in oklch, var(--primary) 90%, black); }
+
+.dim-btn.accent { color: white; background: var(--info); border-color: var(--info); }
+.dim-btn.accent:hover { background: color-mix(in oklch, var(--info) 90%, black); }
+
+.dim-btn.ghost { background: transparent; border-color: transparent; box-shadow: none; color: var(--fg); }
+.dim-btn.ghost:hover { background: var(--accent); }
+
+.dim-btn.danger { color: var(--destructive-fg); background: var(--destructive); border-color: var(--destructive); }
+.dim-btn.danger:hover { background: color-mix(in oklch, var(--destructive) 90%, black); }
+
+.dim-btn.sm { padding: 6px 11px; font-size: 12px; }
+.dim-btn.icon { padding: 8px 12px; }
+
+/* ───────────────────────── badges ──────────────────────────── */
+
+.dim-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    color: var(--secondary-fg);
+    background: var(--secondary);
+}
+.dim-badge.solid { background: var(--primary); color: var(--primary-fg); }
+.dim-badge.info { color: color-mix(in oklch, var(--info) 75%, black); border-color: color-mix(in oklch, var(--info) 35%, transparent); background: color-mix(in oklch, var(--info) 14%, var(--card)); }
+.dim-badge.ok { color: color-mix(in oklch, var(--ok) 70%, black); border-color: color-mix(in oklch, var(--ok) 35%, transparent); background: color-mix(in oklch, var(--ok) 14%, var(--card)); }
+.dim-badge.warn { color: color-mix(in oklch, var(--warn) 65%, black); border-color: color-mix(in oklch, var(--warn) 38%, transparent); background: color-mix(in oklch, var(--warn) 16%, var(--card)); }
+.dim-badge.danger { color: var(--destructive); border-color: color-mix(in oklch, var(--destructive) 35%, transparent); background: color-mix(in oklch, var(--destructive) 12%, var(--card)); }
+.dim-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* ───────────────────────── form fields ─────────────────────── */
+
+.dim-field { display: flex; flex-direction: column; gap: 7px; }
+.dim-field > label { font-size: 12px; font-weight: 500; color: var(--fg); }
+
+.dim-input,
+.dim-textarea,
+.dim-select {
+    appearance: none;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--fg);
+    background: var(--card);
+    border: 1px solid var(--input);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    outline: none;
+    width: 100%;
+    box-shadow: var(--shadow-2xs);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.dim-input::placeholder,
+.dim-textarea::placeholder { color: var(--muted-fg); }
+.dim-input:focus,
+.dim-textarea:focus,
+.dim-select:focus { border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 25%, transparent); }
+.dim-textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+.dim-select {
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted-fg) 50%),
+        linear-gradient(135deg, var(--muted-fg) 50%, transparent 50%);
+    background-position: right 16px center, right 11px center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+}
+
+/* checkbox + radio */
+.dim-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13.5px; color: var(--fg); }
+.dim-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.dim-check .box,
+.dim-check .ring {
+    width: 17px; height: 17px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    display: inline-flex; align-items: center; justify-content: center;
+    flex: none;
+    box-shadow: var(--shadow-2xs);
+    transition: all 0.13s ease;
+}
+.dim-check .ring { border-radius: 50%; }
+.dim-check input:checked + .box { background: var(--primary); border-color: var(--primary); }
+.dim-check input:checked + .box::after { content: "✓"; color: var(--primary-fg); font-size: 12px; line-height: 1; }
+.dim-check input:checked + .ring { border-color: var(--primary); }
+.dim-check input:checked + .ring::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+.dim-check input:focus-visible + .box,
+.dim-check input:focus-visible + .ring { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* switch */
+.dim-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.dim-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.dim-switch .track {
+    width: 42px; height: 24px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--muted);
+    position: relative;
+    transition: all 0.16s ease;
+}
+.dim-switch .track::after {
+    content: ""; position: absolute; top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.16s ease;
+}
+.dim-switch input:checked + .track { background: var(--primary); border-color: var(--primary); }
+.dim-switch input:checked + .track::after { left: 20px; }
+
+/* slider */
+.dim-range { width: 100%; appearance: none; height: 6px; border-radius: 999px; background: var(--muted); outline: none; cursor: pointer; }
+.dim-range::-webkit-slider-thumb {
+    appearance: none; width: 17px; height: 17px; border-radius: 50%;
+    background: var(--primary); border: 2px solid var(--card);
+    box-shadow: var(--shadow); cursor: pointer;
+}
+.dim-range::-moz-range-thumb {
+    width: 17px; height: 17px; border-radius: 50%; border: 2px solid var(--card);
+    background: var(--primary); box-shadow: var(--shadow); cursor: pointer;
+}
+
+/* ───────────────────────── progress ────────────────────────── */
+
+.dim-progress { width: 100%; height: 8px; border-radius: 999px; background: var(--muted); overflow: hidden; }
+.dim-progress > span { display: block; height: 100%; border-radius: 999px; background: var(--primary); }
+.dim-progress.info > span { background: var(--info); }
+.dim-progress.warn > span { background: var(--warn); }
+.dim-progress.ok > span { background: var(--ok); }
+
+/* ───────────────────────── tabs ─────────────────────────────── */
+
+.dim-tabs { display: inline-flex; gap: 3px; padding: 3px; border-radius: var(--radius); background: var(--muted); }
+.dim-tab {
+    appearance: none; cursor: pointer; background: transparent; border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    color: var(--muted-fg); padding: 7px 14px; transition: all 0.14s ease;
+}
+.dim-tab:hover { color: var(--fg); }
+.dim-tab[aria-selected="true"] { color: var(--fg); background: var(--card); box-shadow: var(--shadow-2xs); }
+
+/* ───────────────────────── table ───────────────────────────── */
+
+.dim-table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 13.5px; }
+.dim-table th {
+    text-align: left; font-weight: 500;
+    font-size: 12px; color: var(--muted-fg);
+    padding: 11px 14px; border-bottom: 1px solid var(--border);
+}
+.dim-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--fg); }
+.dim-table tr:last-child td { border-bottom: none; }
+.dim-table tr:hover td { background: var(--muted); }
+
+/* ───────────────────────── avatar ──────────────────────────── */
+
+.dim-avatar {
+    width: 38px; height: 38px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    color: var(--secondary-fg); background: var(--secondary);
+}
+.dim-avatar.sky { color: white; background: var(--info); }
+.dim-avatar.ok { color: white; background: var(--ok); }
+
+/* ───────────────────────── status dot ──────────────────────── */
+
+.dim-live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 color-mix(in oklch, var(--ok) 50%, transparent); animation: caf-pulse 2.4s ease-out infinite; }
+@keyframes caf-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--ok) 45%, transparent); }
+    70% { box-shadow: 0 0 0 8px color-mix(in oklch, var(--ok) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--ok) 0%, transparent); }
+}
+
+/* ───────────────────────── alert ───────────────────────────── */
+
+.dim-alert {
+    display: flex; gap: 12px; padding: 14px 16px;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--card); color: var(--fg); font-size: 13.5px;
+    box-shadow: var(--shadow-2xs);
+}
+.dim-alert.info { border-color: color-mix(in oklch, var(--info) 35%, transparent); background: color-mix(in oklch, var(--info) 9%, var(--card)); border-left: 3px solid var(--info); }
+.dim-alert.danger { border-color: color-mix(in oklch, var(--destructive) 35%, transparent); background: color-mix(in oklch, var(--destructive) 8%, var(--card)); border-left: 3px solid var(--destructive); }
+.dim-alert.warn { border-color: color-mix(in oklch, var(--warn) 38%, transparent); background: color-mix(in oklch, var(--warn) 12%, var(--card)); border-left: 3px solid var(--warn); }
+.dim-alert .dim-alert-title { font-weight: 600; font-size: 13.5px; color: var(--fg); }
+.dim-alert.info .dim-alert-title { color: color-mix(in oklch, var(--info) 75%, black); }
+.dim-alert.danger .dim-alert-title { color: color-mix(in oklch, var(--destructive) 80%, black); }
+.dim-alert.warn .dim-alert-title { color: color-mix(in oklch, var(--warn) 60%, black); }
+
+/* ───────────────────────── stepper ─────────────────────────── */
+
+.dim-stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-2xs); }
+.dim-stepper button {
+    appearance: none; cursor: pointer; width: 42px;
+    font-family: var(--sans); font-size: 18px; line-height: 1;
+    color: var(--fg); background: var(--card); border: none;
+    transition: background 0.12s ease;
+}
+.dim-stepper button:hover { background: var(--accent); }
+.dim-stepper .val {
+    min-width: 96px; padding: 14px 10px; text-align: center;
+    font-size: 30px; font-weight: 700; color: var(--fg);
+    border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+}
+
+/* ───────────────────────── bar chart ───────────────────────── */
+
+.dim-bars { display: flex; align-items: flex-end; gap: 5px; height: 80px; }
+.dim-bars .bar {
+    flex: 1; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background: var(--secondary);
+    transition: background 0.14s ease;
+}
+.dim-bars .bar:hover { background: color-mix(in oklch, var(--secondary) 70%, var(--primary)); }
+.dim-bars .bar.hot { background: var(--primary); }
+
+/* ───────────────────────── line chart ──────────────────────── */
+
+.dim-chart { width: 100%; height: 150px; display: block; overflow: visible; }
+.dim-chart .grid line { stroke: var(--border); stroke-width: 1; }
+.dim-chart .axis { fill: var(--muted-fg); font-family: var(--sans); font-size: 9px; }
+.dim-chart .series { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.dim-chart .series.a { stroke: var(--primary); }
+.dim-chart .series.b { stroke: var(--info); opacity: 0.85; }
+.dim-chart .node { fill: var(--card); stroke: var(--primary); stroke-width: 2; }
+
+/* ───────────────────────── calendar ────────────────────────── */
+
+.dim-cal { display: flex; flex-direction: column; gap: 8px; }
+.dim-cal-head { display: flex; align-items: center; justify-content: space-between; }
+.dim-cal-head .mo { font-size: 14px; font-weight: 600; color: var(--fg); }
+.dim-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.dim-cal-grid .dow { text-align: center; font-size: 11px; color: var(--muted-fg); padding-bottom: 2px; }
+.dim-cal-grid .day {
+    appearance: none; cursor: pointer; aspect-ratio: 1; min-height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm);
+    font-family: var(--sans); font-size: 13px; color: var(--fg);
+    background: transparent; border: 1px solid transparent;
+    transition: all 0.12s ease;
+}
+.dim-cal-grid .day:hover { background: var(--accent); }
+.dim-cal-grid .day.muted { color: var(--muted-fg); background: transparent; cursor: default; }
+.dim-cal-grid .day.range { background: var(--secondary); }
+.dim-cal-grid .day.sel { background: var(--primary); color: var(--primary-fg); }
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
