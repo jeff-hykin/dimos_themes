@@ -1,0 +1,407 @@
+/*
+  DimOS UI theme — retro-futuristic design system.
+  Shared by every dashboard app so installed UIs look native.
+
+  Visual language lifted from dimos/experimental/pimsim:
+    neon-cyan hairlines, solid dark panels, faint scanlines, hard corners,
+    uppercase mono labels, soft glow. No rounded edges anywhere.
+
+  Consume via:  <link rel="stylesheet" href="/assets/theme.css">
+  Tokens are CSS variables on :root — override them to reskin an app.
+*/
+
+:root {
+    /* ── palette ── */
+    --neon: #45e0ff;
+    --neon-strong: #8af2ff;
+    --neon-dim: rgba(69, 224, 255, 0.45);
+    --neon-soft: rgba(69, 224, 255, 0.12);
+
+    --accent-2: #ff49c0; /* magenta — secondary charts / highlights */
+    --accent-3: #ff9f1c; /* amber */
+    --accent-4: #5de743; /* toned-down green */
+
+    --ok: #54ffb0;
+    --warn: #ffcf5c;
+    --danger: #ff5c57;
+
+    /* ── surfaces ── */
+    --bg: #04070b;
+    --panel: rgba(7, 13, 18, 0.92);
+    --panel-2: rgba(10, 17, 23, 0.96);
+    --panel-3: rgba(69, 224, 255, 0.05);
+
+    /* ── lines ── */
+    --line: rgba(69, 224, 255, 0.3);
+    --line-soft: rgba(69, 224, 255, 0.16);
+
+    /* ── text ── */
+    --text: #d6eef5;
+    --label: rgba(150, 200, 215, 0.72);
+    --label-dim: rgba(150, 200, 215, 0.42);
+
+    /* ── type ── */
+    --mono: "RetroMono", ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --display: "DisplayOS", "RetroMono", ui-monospace, monospace; /* headings — angular HUD */
+    --pixel: "PixelOS", var(--mono);                              /* captions / numerics only */
+
+    /* ── effects ── */
+    --glow: 0 0 22px rgba(69, 224, 255, 0.14), 0 8px 32px rgba(0, 0, 0, 0.6);
+    --glow-inset: inset 0 0 14px rgba(69, 224, 255, 0.18);
+    --scan: repeating-linear-gradient(
+        0deg,
+        rgba(69, 224, 255, 0.035) 0,
+        rgba(69, 224, 255, 0.035) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+}
+
+/* Hard corners, everywhere. The aesthetic is non-negotiable. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    border-radius: 0 !important;
+}
+
+body.dimos {
+    margin: 0;
+    background:
+        radial-gradient(1200px 800px at 70% -10%, rgba(69, 224, 255, 0.06), transparent 60%),
+        var(--bg);
+    color: var(--text);
+    font: 14px/1.5 var(--mono);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ───────────────────────── typography ───────────────────────── */
+
+.dim-h1,
+.dim-h2,
+.dim-h3 {
+    font-family: var(--display);
+    color: var(--neon);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+.dim-h1 { font-size: 22px; }
+.dim-h2 { font-size: 14px; letter-spacing: 2px; }
+.dim-h3 { font-family: var(--pixel); font-size: 10px; letter-spacing: 1.6px; line-height: 1.7; color: var(--label); }
+
+.dim-label {
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--label);
+}
+.dim-muted { color: var(--label-dim); }
+.dim-mono { font-family: var(--mono); }
+.dim-link {
+    color: var(--neon);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-soft);
+}
+.dim-link:hover { color: var(--neon-strong); border-color: var(--neon); }
+
+/* ───────────────────────── surfaces ──────────────────────────── */
+
+.dim-panel {
+    background-color: var(--panel);
+    background-image: var(--scan);
+    border: 1px solid var(--line);
+    box-shadow: var(--glow);
+}
+
+.dim-card {
+    background-color: var(--panel);
+    background-image: var(--scan);
+    border: 1px solid var(--line);
+    box-shadow: var(--glow);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.dim-card-title {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--neon);
+    border-bottom: 1px solid var(--line-soft);
+    padding-bottom: 10px;
+}
+.dim-card-desc { color: var(--label); font-size: 13px; }
+
+/* ───────────────────────── buttons ──────────────────────────── */
+
+.dim-btn {
+    appearance: none;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text);
+    background: var(--panel-3);
+    border: 1px solid var(--line-soft);
+    padding: 11px 16px;
+    transition: color 0.14s ease, background 0.14s ease, border-color 0.14s ease;
+}
+.dim-btn:hover { background: var(--neon-soft); border-color: var(--line); }
+.dim-btn:active { transform: translateY(1px); }
+.dim-btn:focus-visible { outline: none; box-shadow: var(--glow-inset); border-color: var(--neon); }
+.dim-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.dim-btn.primary {
+    color: #021016;
+    background: var(--neon);
+    border-color: var(--neon);
+    font-weight: 600;
+}
+.dim-btn.primary:hover { background: var(--neon-strong); border-color: var(--neon-strong); }
+
+.dim-btn.ghost { background: transparent; border-color: transparent; color: var(--neon); }
+.dim-btn.ghost:hover { background: var(--neon-soft); color: var(--neon-strong); }
+
+.dim-btn.danger {
+    color: #ff938f;
+    background: rgba(255, 92, 87, 0.14);
+    border-color: rgba(255, 92, 87, 0.45);
+}
+.dim-btn.danger:hover { background: rgba(255, 92, 87, 0.26); color: #fff; }
+
+.dim-btn.sm { padding: 7px 11px; font-size: 11.5px; }
+.dim-btn.icon { padding: 9px 11px; }
+
+/* ───────────────────────── badges ──────────────────────────── */
+
+.dim-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border: 1px solid var(--line);
+    color: var(--neon);
+    background: var(--neon-soft);
+}
+.dim-badge.solid { background: var(--neon); color: #021016; border-color: var(--neon); }
+.dim-badge.ok { color: var(--ok); border-color: rgba(84, 255, 176, 0.45); background: rgba(84, 255, 176, 0.1); }
+.dim-badge.warn { color: var(--warn); border-color: rgba(255, 207, 92, 0.45); background: rgba(255, 207, 92, 0.1); }
+.dim-badge.danger { color: #ff938f; border-color: rgba(255, 92, 87, 0.45); background: rgba(255, 92, 87, 0.12); }
+.dim-badge .dot { width: 7px; height: 7px; border-radius: 50% !important; background: currentColor; box-shadow: 0 0 8px currentColor; }
+
+/* ───────────────────────── form fields ─────────────────────── */
+
+.dim-field { display: flex; flex-direction: column; gap: 7px; }
+.dim-field > label {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--neon);
+}
+
+.dim-input,
+.dim-textarea,
+.dim-select {
+    appearance: none;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text);
+    background: rgba(69, 224, 255, 0.06);
+    border: 1px solid var(--line);
+    padding: 11px 13px;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.14s ease, box-shadow 0.14s ease;
+}
+.dim-input::placeholder,
+.dim-textarea::placeholder { color: var(--label-dim); }
+.dim-input:focus,
+.dim-textarea:focus,
+.dim-select:focus { border-color: var(--neon); box-shadow: var(--glow-inset); }
+.dim-textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+.dim-select {
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--neon) 50%),
+        linear-gradient(135deg, var(--neon) 50%, transparent 50%);
+    background-position: right 16px center, right 11px center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+}
+
+/* checkbox + radio: hide native, draw a hard neon box/dot */
+.dim-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; color: var(--text); }
+.dim-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.dim-check .box,
+.dim-check .ring {
+    width: 17px; height: 17px;
+    border: 1px solid var(--line);
+    background: rgba(69, 224, 255, 0.06);
+    display: inline-flex; align-items: center; justify-content: center;
+    flex: none;
+    transition: all 0.12s ease;
+}
+.dim-check .ring { border-radius: 50% !important; }
+.dim-check input:checked + .box { background: var(--neon); border-color: var(--neon); }
+.dim-check input:checked + .box::after { content: "✕"; color: #021016; font-size: 12px; line-height: 1; }
+.dim-check input:checked + .ring { border-color: var(--neon); box-shadow: var(--glow-inset); }
+.dim-check input:checked + .ring::after { content: ""; width: 7px; height: 7px; border-radius: 50% !important; background: var(--neon); box-shadow: 0 0 8px var(--neon); }
+.dim-check input:focus-visible + .box,
+.dim-check input:focus-visible + .ring { box-shadow: var(--glow-inset); border-color: var(--neon); }
+
+/* switch */
+.dim-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.dim-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.dim-switch .track {
+    width: 42px; height: 22px;
+    border: 1px solid var(--line);
+    background: rgba(69, 224, 255, 0.06);
+    position: relative;
+    transition: all 0.16s ease;
+}
+.dim-switch .track::after {
+    content: ""; position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px;
+    background: var(--label);
+    transition: all 0.16s ease;
+}
+.dim-switch input:checked + .track { background: var(--neon-soft); border-color: var(--neon); box-shadow: var(--glow-inset); }
+.dim-switch input:checked + .track::after { left: 22px; background: var(--neon); box-shadow: 0 0 10px var(--neon); }
+
+/* slider */
+.dim-range { width: 100%; appearance: none; height: 4px; background: var(--line-soft); outline: none; cursor: pointer; }
+.dim-range::-webkit-slider-thumb {
+    appearance: none; width: 16px; height: 16px;
+    background: var(--neon); border: 1px solid var(--neon);
+    box-shadow: 0 0 10px var(--neon-dim); cursor: pointer;
+}
+.dim-range::-moz-range-thumb {
+    width: 16px; height: 16px; border: 1px solid var(--neon);
+    background: var(--neon); box-shadow: 0 0 10px var(--neon-dim); cursor: pointer;
+}
+
+/* ───────────────────────── progress ────────────────────────── */
+
+.dim-progress { width: 100%; height: 8px; background: rgba(69, 224, 255, 0.06); border: 1px solid var(--line-soft); }
+.dim-progress > span { display: block; height: 100%; background: var(--neon); box-shadow: 0 0 12px var(--neon-dim); }
+
+/* ───────────────────────── tabs ─────────────────────────────── */
+
+.dim-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line-soft); }
+.dim-tab {
+    appearance: none; cursor: pointer; background: transparent; border: none;
+    border-bottom: 2px solid transparent;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--label); padding: 11px 16px; transition: color 0.14s ease;
+    margin-bottom: -1px;
+}
+.dim-tab:hover { color: var(--text); }
+.dim-tab[aria-selected="true"] { color: var(--neon); border-bottom-color: var(--neon); }
+
+/* ───────────────────────── table ───────────────────────────── */
+
+.dim-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 13px; }
+.dim-table th {
+    text-align: left; font-weight: 600;
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--neon);
+    padding: 10px 12px; border-bottom: 1px solid var(--line);
+}
+.dim-table td { padding: 11px 12px; border-bottom: 1px solid var(--line-soft); color: var(--text); }
+.dim-table tr:hover td { background: rgba(69, 224, 255, 0.04); }
+
+/* ───────────────────────── avatar ──────────────────────────── */
+
+.dim-avatar {
+    width: 36px; height: 36px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 11px;
+    color: var(--neon); border: 1px solid var(--line); background: var(--neon-soft);
+}
+
+/* ───────────────────────── status dot ──────────────────────── */
+
+.dim-live-dot { width: 9px; height: 9px; border-radius: 50% !important; background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: dim-pulse 2.4s ease-out infinite; }
+@keyframes dim-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(84, 255, 176, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(84, 255, 176, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(84, 255, 176, 0); }
+}
+
+/* ───────────────────────── alert ───────────────────────────── */
+
+.dim-alert {
+    display: flex; gap: 12px; padding: 13px 15px;
+    border: 1px solid var(--line); border-left-width: 3px;
+    background: var(--neon-soft); color: var(--text); font-size: 13px;
+}
+.dim-alert.danger { border-color: rgba(255, 92, 87, 0.45); background: rgba(255, 92, 87, 0.1); }
+.dim-alert.warn { border-color: rgba(255, 207, 92, 0.45); background: rgba(255, 207, 92, 0.08); }
+.dim-alert .dim-alert-title { font-family: var(--display); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--neon); }
+
+/* ───────────────────────── stepper ─────────────────────────── */
+
+.dim-stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--line); }
+.dim-stepper button {
+    appearance: none; cursor: pointer; width: 42px;
+    font-family: var(--mono); font-size: 18px; line-height: 1;
+    color: var(--neon); background: var(--panel-3); border: none;
+    transition: background 0.12s ease;
+}
+.dim-stepper button:hover { background: var(--neon-soft); }
+.dim-stepper .val {
+    min-width: 96px; padding: 14px 10px; text-align: center;
+    font-family: var(--display); font-size: 30px; color: var(--text);
+    border-left: 1px solid var(--line-soft); border-right: 1px solid var(--line-soft);
+}
+
+/* ───────────────────────── bar chart ───────────────────────── */
+
+.dim-bars { display: flex; align-items: flex-end; gap: 5px; height: 80px; }
+.dim-bars .bar {
+    flex: 1; background: var(--neon-soft); border: 1px solid var(--line-soft); border-bottom: none;
+    transition: background 0.14s ease;
+}
+.dim-bars .bar:hover { background: var(--neon-soft); border-color: var(--neon); box-shadow: var(--glow-inset); }
+.dim-bars .bar.hot { background: var(--neon); border-color: var(--neon); box-shadow: 0 0 12px var(--neon-dim); }
+
+/* ───────────────────────── line chart ──────────────────────── */
+
+.dim-chart { width: 100%; height: 150px; display: block; overflow: visible; }
+.dim-chart .grid line { stroke: var(--line-soft); stroke-width: 1; }
+.dim-chart .axis { fill: var(--label-dim); font-family: var(--mono); font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; }
+.dim-chart .series { fill: none; stroke-width: 2; }
+.dim-chart .series.a { stroke: var(--neon); filter: drop-shadow(0 0 4px var(--neon-dim)); }
+.dim-chart .series.b { stroke: var(--accent-2); opacity: 0.8; }
+.dim-chart .node { fill: var(--bg); stroke: var(--neon); stroke-width: 1.5; }
+
+/* ───────────────────────── calendar ────────────────────────── */
+
+.dim-cal { display: flex; flex-direction: column; gap: 8px; }
+.dim-cal-head { display: flex; align-items: center; justify-content: space-between; }
+.dim-cal-head .mo { font-family: var(--display); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--neon); }
+.dim-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.dim-cal-grid .dow { text-align: center; font-size: 10px; letter-spacing: 0.5px; color: var(--label-dim); padding-bottom: 2px; }
+.dim-cal-grid .day {
+    appearance: none; cursor: pointer; aspect-ratio: 1; min-height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 12px; color: var(--text);
+    background: rgba(69, 224, 255, 0.04); border: 1px solid transparent;
+    transition: all 0.12s ease;
+}
+.dim-cal-grid .day:hover { border-color: var(--line); background: var(--neon-soft); }
+.dim-cal-grid .day.muted { color: var(--label-dim); background: transparent; }
+.dim-cal-grid .day.range { background: var(--neon-soft); border-color: var(--line-soft); }
+.dim-cal-grid .day.sel { background: var(--neon); color: #021016; border-color: var(--neon); box-shadow: 0 0 10px var(--neon-dim); }
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
