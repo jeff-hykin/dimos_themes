@@ -1,8 +1,6 @@
 # Dimos Themes
 
-A retro-futuristic design system for DimOS dashboard apps. Neon-cyan hairlines, solid
-dark panels, faint scanlines, hard corners, and uppercase mono labels — every installed
-UI inherits the same tokens and components so it looks native.
+A retro-futuristic design system for DimOS dashboard apps.
 
 **🔗 Live preview / styleguide:** https://jeff-hykin.github.io/dimos_themes/
 
